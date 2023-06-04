@@ -1,60 +1,93 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import logo from '../../../assets/logo.png'
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import logo from '../../../assets/logo.png';
 import Inputs from '../templates/buttons/Inputs';
 import Button from '../templates/buttons/Button';
 import TextAsButton from '../templates/buttons/TextAsButton';
-
+import imagemRoot from '../../../assets/imagem-tela-principal.png';
 
 export default function Login() {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  const handleLogin = (values) => {
+  
+    console.log(values);
+  };
 
-    const handleBack = () => {
-        navigation.navigate('Init')
-    }
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email('Email inválido').required('Campo obrigatório'),
+    password: Yup.string().required('Campo obrigatório'),
+  });
 
   return (
     <View>
-        <TouchableOpacity
-            onPress={handleBack}
-        >
-            <Image
-                source={logo}
-                style={{marginLeft: 18}}
+      <View style={styles.containerRoot}>
+        <Image source={logo} style={{ marginLeft: 20 }} />
+        <Image source={imagemRoot} style={styles.imagemRoot} />
+        <Text>Food Share</Text>
+      </View>
+
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
+          <View>
+            <Inputs
+              label="Email"
+              placeholder="Email"
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}
+              error={touched.email && errors.email}
             />
-            <Text>Food Share</Text>
-        </TouchableOpacity>
-        <Inputs
-            label="Email"
-            placeholder="Email"
-        />
-        <Inputs
-            label="Senha"
-            placeholder="Senha"
-            password={true}
-        />
-        <Button
-            label = "Login"
-            namePage="Home"
-            position={styles.positionCadastro}
-        />
-        <TextAsButton
-            label="Crie uma conta"
-            namePage="Cadastro"
-            positionStyle={styles.positionEsqueciSenha}
-        />
+            <Inputs
+              label="Senha"
+              placeholder="Digite sua senha"
+              password={true}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+              error={touched.password && errors.password}
+            />
+
+            <Button
+              label="Login"
+              namePage="Home"
+              position={styles.positionCadastro}
+              disabled={!isValid}
+              onPress={handleSubmit}
+            />
+          </View>
+        )}
+      </Formik>
+
+      <TextAsButton
+        label="Crie uma conta"
+        namePage="Cadastro"
+        positionStyle={styles.positionEsqueciSenha}
+      />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-    positionCadastro: {
-        marginTop: 50
-    },
-    positionEsqueciSenha: {
-        marginTop:35,
-        marginRight: 135
-    }
-})
+  positionCadastro: {
+    marginTop: 50,
+  },
+  positionEsqueciSenha: {
+    marginTop: 35,
+    marginRight: 135,
+  },
+  containerRoot: {
+    width: '100%',
+    height: 250,
+  },
+  imagemRoot: {
+    position: 'absolute',
+    marginTop: -16,
+  },
+});

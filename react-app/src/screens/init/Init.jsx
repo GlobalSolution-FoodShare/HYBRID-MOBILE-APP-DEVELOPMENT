@@ -8,7 +8,7 @@ import Button from '../templates/buttons/Button.jsx'
 
 export default function Login() {
   return (
-    <>
+    <View>
       <TextAsButton 
         label="Pular" 
         positionStyle={styles.positionPular}
@@ -27,7 +27,7 @@ export default function Login() {
         positionStyle={styles.positionLogin}
         namePage="Login"
       />
-    </>
+    </View>
   )
 }
 

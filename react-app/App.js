@@ -5,7 +5,7 @@ import 'react-native-gesture-handler';
 import Init from './src/screens/init/Init.jsx';
 import Cadastro from './src/screens/cadastro/Cadastro.jsx'
 import Login from './src/screens/login/Login.jsx';
-import Home from './src/screens/Home/Home.jsx';
+import Home from './src/screens/home/Home.jsx';
 
 
 const Stack = createStackNavigator();
@@ -19,7 +19,7 @@ const ScreenContainer = ({ children }) => {
 
 export default function App() {
   return (
-    <>
+    <View>
       <StatusBar
         backgroundColor="#B100FF"
         barStyle={Platform.OS === 'android' ? 'white-content' : 'default'}
@@ -65,6 +65,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
 
-    </>
+    </View>
   );
 }

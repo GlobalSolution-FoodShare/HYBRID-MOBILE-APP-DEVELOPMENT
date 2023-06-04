@@ -5,7 +5,8 @@ import 'react-native-gesture-handler';
 import Init from './src/screens/init/Init.jsx';
 import Cadastro from './src/screens/cadastro/Cadastro.jsx'
 import Login from './src/screens/login/Login.jsx';
-import Home from './src/screens/home/Home.jsx';
+import Home from './src/screens/Home/Home.jsx';
+import Endereco from './src/screens/cadastro/Endereco.jsx';
 
 
 const Stack = createStackNavigator();
@@ -42,6 +43,14 @@ export default function App() {
             {() => (
               <ScreenContainer>
                 <Cadastro/>
+              </ScreenContainer>
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="Endereco">
+            {() => (
+              <ScreenContainer>
+                <Endereco/>
               </ScreenContainer>
             )}
           </Stack.Screen>

@@ -23,8 +23,8 @@ function HomeTabScreen() {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarActiveTintColor: '#B100FF',  // cor quando selecionado
-                tabBarInactiveTintColor: 'gray',  // cor quando não selecionado
+                tabBarActiveTintColor: '#B100FF',
+                tabBarInactiveTintColor: 'gray',
                 tabBarStyle: [
                     {
                         display: 'flex',
@@ -39,6 +39,7 @@ function HomeTabScreen() {
                 name="Mapa"
                 component={Home}
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Mapa',
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="map-marker-alt" color={color} size={size} />

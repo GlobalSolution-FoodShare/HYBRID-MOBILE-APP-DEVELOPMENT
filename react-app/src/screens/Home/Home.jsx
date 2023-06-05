@@ -1,17 +1,15 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import React from 'react'
-import MapView , { Marker } from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 
 export default function Home() {
-
-  const TOKEN= 'AIzaSyDeVaB72GIpewSlMFVheZlxro5fwzw1fSU'
 
   return (
     <View style={styles.viewMaster}>
       <MapView style={styles.map}>
         <Marker
           coordinate={{
-            latitude: -23.574096131033418, 
+            latitude: -23.574096131033418,
             longitude: -46.62322686358335
           }}
         />
@@ -27,18 +25,18 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  viewMaster:{
-    marginLeft:0,
-    padding:0,
-    flex: 1, 
-    justifyContent: 'center', 
+  viewMaster: {
+    marginLeft: 0,
+    padding: 0,
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  map:{
-    marginLeft:0,
-    border:0,
+  map: {
+    marginLeft: 0,
+    border: 0,
     width: Dimensions.get('window').width,
-    height:582,
-    
+    height: 582,
+
   }
 })

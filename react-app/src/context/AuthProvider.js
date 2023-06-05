@@ -37,9 +37,13 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await ApiService.post('login', data);
 
-
       setToken(response.token);
 
+      try {
+        const response = await ApiService.get(`cliente/${id}`, data);
+      } catch (erro) {
+
+      }
       await AsyncStorage.setItem('@RNAuth:token', response.token);
 
       return true;

@@ -14,11 +14,23 @@ const AuthProvider = ({ children }) => {
     try {
       const storedToken = await AsyncStorage.getItem('@RNAuth:token');
       if (storedToken) {
-        setToken(storedToken);
+        try {
+          console.log(storedToken)
+          const response = await ApiService.get('validar-token', storedToken);
+          console.log(response)
+          setToken(storedToken);
+        } catch (error) {
+          setToken(null);
+          return false;
+        }
       }
+
     } catch (error) {
       console.log('Erro ao recuperar o token:', error);
     }
+    console.log(token)
+
+
   };
 
   const signIn = async (data) => {

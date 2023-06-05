@@ -28,7 +28,9 @@ function HomeTabScreen() {
                 tabBarStyle: [
                     {
                         display: 'flex',
-                        height: 60
+                        height: 60,
+                        paddingBottom: 10,
+                        paddingTop: 10
                     }
                 ]
             }}
@@ -80,7 +82,6 @@ const ScreenContainer = ({ children }) => {
 
 const Routes = () => {
     const { token } = useContext(AuthContext);
-
     return (
         <NavigationContainer>
             {token ? (
@@ -95,11 +96,45 @@ const Routes = () => {
                     initialRouteName="Init"
                     screenOptions={{ headerShown: false }}
                 >
-                    <Stack.Screen name="Init" component={Init} />
-                    <Stack.Screen name="Cadastro" component={Cadastro} />
-                    <Stack.Screen name="Endereco" component={Endereco} />
-                    <Stack.Screen name="LoginCadastro" component={LoginCadastro} />
-                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="Init">
+                        {() => (
+                            <ScreenContainer>
+                                <Init />
+                            </ScreenContainer>
+                        )}
+                    </Stack.Screen>
+                    <Stack.Screen name="Cadastro">
+                        {() => (
+                            <ScreenContainer>
+                                <Cadastro />
+                            </ScreenContainer>
+                        )}
+                    </Stack.Screen>
+
+                    <Stack.Screen name="Endereco">
+                        {() => (
+                            <ScreenContainer>
+                                <Endereco />
+                            </ScreenContainer>
+                        )}
+                    </Stack.Screen>
+
+                    <Stack.Screen name="LoginCadastro">
+                        {() => (
+                            <ScreenContainer>
+                                <LoginCadastro />
+                            </ScreenContainer>
+                        )}
+                    </Stack.Screen>
+
+                    <Stack.Screen name="Login">
+                        {() => (
+                            <ScreenContainer>
+                                <Login />
+                            </ScreenContainer>
+                        )}
+                    </Stack.Screen>
+
                 </Stack.Navigator>
             )}
         </NavigationContainer>

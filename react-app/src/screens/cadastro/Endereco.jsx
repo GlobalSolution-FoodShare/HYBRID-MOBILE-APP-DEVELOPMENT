@@ -49,13 +49,15 @@ export default function Endereco() {
                 latitude,
                 longetude);
             let cliente = new Cliente(cadastroInfo.cpf, cadastroInfo.nome, cadastroInfo.tipo, endereco);
-
+            
            cadastrarCliente(cliente)
         }
     };
 
 
     const cadastrarCliente = async (data) => {
+        console.log(data)
+
         setLoading(true)
         try {
             const response = await ApiService.post('cliente/registrar', data);

@@ -1,71 +1,55 @@
-import React, {useState} from "react";
-import { TouchableOpacity, StyleSheet, Text , View} from "react-native";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native'
-import * as Font from 'expo-font';
 
-const Button = ({ label, position, namePage }) => {
-
-    const navigation = useNavigation();
-
-    const handle = () => {
-        navigation.navigate(namePage);
-    }
-
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-
-    const loadFonts = async () => {
-    await Font.loadAsync({
-      'DMSans-Bold': require('../../../fonts/DMSans-Bold.ttf'),
-    });
-    setFontsLoaded(true);
-    };
-
-    if (!fontsLoaded) {
-        loadFonts();
-        return null; // Renderiza null enquanto as fontes estão sendo carregadas
-    }
-    
-    return(
+const Button = ({ label, onPress, loading, position }) => {
+    return (
         <TouchableOpacity
+            disabled={loading}
             style={styles.button}
-            onPress={handle}
+            onPress={onPress}
         >
             <LinearGradient
-                colors={['#C133FF', '#8E00CC']}
+                colors={loading ? ['#444444', '#797979'] : ['#C133FF', '#8E00CC']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={[styles.container, position]}
+                style={[styles.container, position, loading && styles.loadingContainer]}
             >
-                <Text style={styles.label}>{label}</Text>
+                {loading ? <ActivityIndicator
+                    size="small"
+                    color="white" /> : <Text style={styles.label}>{label}</Text>}
             </LinearGradient>
+
         </TouchableOpacity>
-    )
+    );
 };
+
+export default Button;
 
 const styles = StyleSheet.create({
     container: {
-        flex:0,
+        flex: 0,
         width: 335,
         height: 51,
         borderRadius: 20,
-        alignItems:'center',
-        alignSelf: 'center',
-    },
-    backgroundGradient: {
-        flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     label: {
-        fontFamily: 'DMSans-Bold',
+        // fontFamily: 'DMSans-Bold',
         fontStyle: 'normal',
         fontSize: 14,
         lineHeight: 47,
-        textAlign:'center',
+        textAlign: 'center',
         color: '#fff',
+    },
+    loadingContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
-
-})
-
-export default Button;
+});

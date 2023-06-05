@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Swiper from 'react-native-swiper';
 import SpanBold from '../templates/text/SpanBold.jsx';
 
 const CarouselLogin = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const carouselRef = useRef(null);
 
   const carouselData = [
     {
@@ -16,59 +15,55 @@ const CarouselLogin = () => {
     },
     {
       image: require('../../../assets/cesta.png'),
+      text: '',
       width: 253,
       height: 294,
     },
   ];
 
-  const renderItem = ({ item }) => {
-    return (
-      <View>
-        {item.text && (
-          <SpanBold
-            label={'Faça ou receba doações de forma rápida e prática'}
-            positionStyle={style.positionSpan}
-          />
-        )}
-        <Image
-          source={item.image}
-          style={{
-            top: 50,
-            width: item.width,
-            height: item.height,
-            alignSelf: 'center',
-            marginRight: 25,
-          }}
-        />
-      </View>
-    );
-  };
-
   const renderPagination = () => {
     return (
-      <Pagination
-        dotsLength={carouselData.length}
-        activeDotIndex={activeSlide}
-        containerStyle={style.paginationContainer}
-        dotStyle={style.paginationDot}
-        inactiveDotStyle={style.paginationDotInactive}
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-      />
+      <View style={styles.paginationContainer}>
+        {carouselData.map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.paginationDot,
+              index === activeSlide && styles.activePaginationDot,
+            ]}
+          />
+        ))}
+      </View>
     );
   };
 
   return (
     <View style={styles.container}>
-      <Carousel
-        ref={carouselRef}
-        data={carouselData}
-        renderItem={renderItem}
-        sliderWidth={Dimensions.get('window').width}
-        itemWidth={Dimensions.get('window').width}
-        layout="default"
-        onSnapToItem={(index) => setActiveSlide(index)}
-      />
+      <Swiper
+        loop={false}
+        showsPagination={false}
+        onIndexChanged={setActiveSlide}
+      >
+        {carouselData.map((item, index) => (
+          <View key={index} style={styles.slide}>
+            {item.text && (
+              <SpanBold
+                label={'Faça ou receba doações de forma rápida e prática'}
+                positionStyle={styles.positionSpan}
+              />
+            )}
+            <Image
+              source={item.image}
+              style={{
+                width: item.width,
+                height: item.height,
+                alignSelf: 'center',
+                marginRight: 25,
+              }}
+            />
+          </View>
+        ))}
+      </Swiper>
       {renderPagination()}
     </View>
   );
@@ -76,29 +71,34 @@ const CarouselLogin = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
   },
-});
-
-const style = StyleSheet.create({
+  slide: {
+    width: Dimensions.get('window').width,
+    alignItems: 'center', // Centraliza verticalmente no meio
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
   positionSpan: {
     marginTop: 49,
     marginRight: 25,
   },
   paginationContainer: {
-    paddingVertical: 10,
+    position: 'absolute',
+    bottom: 20,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   paginationDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    marginTop:52,
-    backgroundColor: '#294DCA', 
+    marginHorizontal: 5,
+    backgroundColor: '#294DCA',
   },
-  paginationDotInactive: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+  activePaginationDot: {
     backgroundColor: 'gray',
   },
 });

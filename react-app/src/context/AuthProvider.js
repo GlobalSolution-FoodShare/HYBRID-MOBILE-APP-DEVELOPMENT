@@ -5,6 +5,7 @@ import ApiService from '../service/ApiService';
 
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
+  const [idCliente, setIdCliente] = useState(null);
 
   useEffect(() => {
     checkToken();
@@ -13,23 +14,29 @@ const AuthProvider = ({ children }) => {
   const checkToken = async () => {
     try {
       const storedToken = await AsyncStorage.getItem('@RNAuth:token');
-      if (storedToken) {
+      const storedIdCliente = await AsyncStorage.getItem('@RNAuth:idCliente');
+      if (storedIdCliente && storedToken) {
         try {
           console.log(storedToken)
           const response = await ApiService.get('validar-token', storedToken);
-          console.log(response)
           setToken(storedToken);
+          console.info("Sucesso na revalidação")
+          setIdCliente(storedIdCliente)
         } catch (error) {
           setToken(null);
+          setIdCliente(null);
           return false;
         }
+      } else {
+        setToken(null);
+        setIdCliente(null);
       }
 
     } catch (error) {
       console.log('Erro ao recuperar o token:', error);
     }
     console.log(token)
-
+    console.log(idCliente)
 
   };
 
@@ -38,13 +45,11 @@ const AuthProvider = ({ children }) => {
       const response = await ApiService.post('login', data);
 
       setToken(response.token);
+      setIdCliente(response.cliente);
 
-      try {
-        const response = await ApiService.get(`cliente/${id}`, data);
-      } catch (erro) {
 
-      }
       await AsyncStorage.setItem('@RNAuth:token', response.token);
+      await AsyncStorage.setItem('@RNAuth:idCliente', response.cliente.toString());
 
       return true;
     } catch (error) {

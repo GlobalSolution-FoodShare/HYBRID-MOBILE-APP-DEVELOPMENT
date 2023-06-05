@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
-import React from 'react'
+import React, {useContext} from 'react'
 import MapView, { Marker } from 'react-native-maps'
+import AuthContext from '../../context/AuthContext';
 
 export default function Home() {
+  const { signIn, token } = useContext(AuthContext);
 
   return (
     <View style={styles.viewMaster}>

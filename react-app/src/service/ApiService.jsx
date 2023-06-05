@@ -33,40 +33,40 @@ class ApiService {
     }
 
     async get(endpoint, token) {
-        const url = `${urlBackend}/${endpoint}`;
+  const url = `${urlBackend}/${endpoint}`;
 
-        try {
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-            if (response.ok) {
-                const contentType = response.headers.get('content-type');
-                if (contentType && contentType.includes('application/json')) {
-                    const jsonData = await response.json();
-                    return {
-                        data: jsonData,
-                        status: response.status,
-                    };
-                } else {
-                    return {
-                        data: null,
-                        status: response.status,
-                    };
-                }
-            } else {
-                throw new Error('Request falhou');
-            }
-        } catch (error) {
-            throw new Error(error);
-        }
+    if (response.ok) {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const jsonData = await response.json();
+        return {
+          data: jsonData,
+          status: response.status,
+        };
+      } else {
+        return {
+          data: null,
+          status: response.status,
+        };
+      }
+    } else {
+      throw new Error('Request falhou');
     }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
-
+      
 
 }
 

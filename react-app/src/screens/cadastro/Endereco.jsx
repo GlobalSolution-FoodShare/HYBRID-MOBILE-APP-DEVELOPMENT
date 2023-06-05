@@ -56,7 +56,6 @@ export default function Endereco() {
 
 
     const cadastrarCliente = async (data) => {
-        console.log(data)
 
         setLoading(true)
         try {

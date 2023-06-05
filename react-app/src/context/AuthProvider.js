@@ -17,11 +17,10 @@ const AuthProvider = ({ children }) => {
       const storedIdCliente = await AsyncStorage.getItem('@RNAuth:idCliente');
       if (storedIdCliente && storedToken) {
         try {
-          console.log(storedToken)
           const response = await ApiService.get('validar-token', storedToken);
+          setIdCliente(storedIdCliente)
           setToken(storedToken);
           console.info("Sucesso na revalidação")
-          setIdCliente(storedIdCliente)
         } catch (error) {
           setToken(null);
           setIdCliente(null);
@@ -35,8 +34,6 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log('Erro ao recuperar o token:', error);
     }
-    console.log(token)
-    console.log(idCliente)
 
   };
 
@@ -63,10 +60,11 @@ const AuthProvider = ({ children }) => {
     setToken(null);
     // Remover o token do AsyncStorage
     await AsyncStorage.removeItem('@RNAuth:token');
+    await AsyncStorage.removeItem('@RNAuth:idCliente');
   };
 
   return (
-    <AuthContext.Provider value={{ token, signIn, logout }}>
+    <AuthContext.Provider value={{ token, signIn, logout, idCliente }}>
       {children}
     </AuthContext.Provider>
   );

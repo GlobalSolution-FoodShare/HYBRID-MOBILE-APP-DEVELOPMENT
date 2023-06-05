@@ -82,9 +82,11 @@ const ScreenContainer = ({ children }) => {
 };
 
 const Routes = () => {
-    const { token, logout } = useContext(AuthContext);
-    // logout()
+    const { token, idCliente } = useContext(AuthContext);
 
+
+    console.log(token)
+    console.log(idCliente)
     return (
         <NavigationContainer>
             {token ? (

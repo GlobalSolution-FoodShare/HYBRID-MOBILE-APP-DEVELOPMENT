@@ -23,7 +23,6 @@ class ApiService {
                 const jsonData = await response.json();
                 return jsonData;
             } else {
-                console.log(response)
                 throw new Error('Request falhou');
             }
         } catch (error) {

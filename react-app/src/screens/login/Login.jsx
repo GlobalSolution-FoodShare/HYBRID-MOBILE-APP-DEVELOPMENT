@@ -19,14 +19,12 @@ export default function Login() {
     const navigation = useNavigation();
     const [snackbarVisible, setSnackbarVisible] = useState(false);
 
-    console.log(token)
 
 
     const handleLogin = async (values) => {
         try {
             const success = await signIn(values);
             if (success) {
-                console.log(success)
                 navigation.navigate("Home");
             } else {
                 console.error("Email ou senha incorretos");

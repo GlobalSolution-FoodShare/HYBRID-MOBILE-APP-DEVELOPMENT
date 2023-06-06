@@ -22,10 +22,30 @@ import Octicons from 'react-native-vector-icons/Octicons';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const MapaHeader = () => (
+    <HeaderTab
+        superText="Veja as opções"
+        miniText="Selecione um receptor para doar"
+    />
+);
+
+const PedidosHeader = () => (
+    <HeaderTab
+        superText="Texto para a tela Pedidos"
+        miniText="Outro texto para a tela Pedidos"
+    />
+);
+
+const PerfilHeader = () => (
+    <HeaderTab
+        superText="Meu Perfil"
+        miniText="Faça atualizações aqui"
+    />
+);
+
 function HomeTabScreen() {
     return (
-        <LogadoProvider >
-            <HeaderTab />
+        <LogadoProvider>
             <Tab.Navigator
                 screenOptions={{
                     tabBarActiveTintColor: '#B100FF',
@@ -35,48 +55,46 @@ function HomeTabScreen() {
                             display: 'flex',
                             height: 60,
                             paddingBottom: 10,
-                            paddingTop: 10
-                        }
-                    ]
+                            paddingTop: 10,
+                        },
+                    ],
                 }}
             >
                 <Tab.Screen
                     name="Mapa"
                     component={Home}
                     options={{
-                        headerShown: false,
                         tabBarLabel: 'Mapa',
                         tabBarIcon: ({ color, size }) => (
                             <Icon name="map-marker-alt" color={color} size={size} />
                         ),
+                        header: () => <MapaHeader />,
                     }}
                 />
-
-
-                <Tab.Screen
+                {/* <Tab.Screen
                     name="Pedidos"
-                    component={''}
+                    component={Pedidos}
                     options={{
                         tabBarLabel: 'Pedidos',
                         tabBarIcon: ({ color, size }) => (
                             <Octicons name="checklist" color={color} size={size} />
                         ),
+                        header: () => <PedidosHeader />,
                     }}
-                />
+                /> */}
                 <Tab.Screen
                     name="Perfil"
                     component={Perfil}
                     options={{
-                        headerShown: false,
                         tabBarLabel: 'Perfil',
                         tabBarIcon: ({ color, size }) => (
                             <Icon name="user" color={color} size={size} />
                         ),
+                        header: () => <PerfilHeader />,
                     }}
                 />
-
             </Tab.Navigator>
-        </LogadoProvider >
+        </LogadoProvider>
     );
 }
 

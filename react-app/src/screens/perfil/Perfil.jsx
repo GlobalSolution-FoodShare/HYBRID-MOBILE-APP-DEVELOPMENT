@@ -15,10 +15,6 @@ export default function Perfil() {
 
     return (
         <View>
-            <SpanBold
-                label="Meu Perfil"
-                positionStyle={styles.positionPerfil}
-            />
             <View style={styles.viewMaster}>
                 <CardPerfil
                     nomeCompleto={cliente.nomeCompleto}

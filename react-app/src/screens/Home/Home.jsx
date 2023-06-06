@@ -92,6 +92,7 @@ export default function Home() {
   };
 
   return (
+
     <View style={styles.viewMaster}>
       {loading ? (
         <ActivityIndicator size="large" color="#C133FF" />
@@ -158,7 +159,7 @@ export default function Home() {
                 value={raio}
                 onValueChange={handleSliderValueChange}
                 minimumTrackTintColor="#C133FF"
-                thumbTintColor="#FF00FF" 
+                thumbTintColor="#FF00FF"
               />
               {selectedDistance && (
                 <Text style={{ textAlign: 'center', marginTop: -15, color: '#C133FF' }}>{`${selectedDistance} KM`}</Text>

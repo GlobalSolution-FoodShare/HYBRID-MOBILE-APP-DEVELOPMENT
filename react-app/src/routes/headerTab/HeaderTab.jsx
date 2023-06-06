@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import LogadoContext from '../../context/LogadoContext';
 
-const HeaderTab = () => {
+const HeaderTab = ({ superText, miniText })  => {
     const { cliente } = useContext(LogadoContext);
 
     const formataEndereco = (endereco) => {
@@ -12,21 +12,23 @@ const HeaderTab = () => {
 
     return (
         <View style={styles.headerContainer}>
-
             <>
                 <View style={styles.headerContainerTextsInfos}>
-
                     <Text style={styles.headerText}>{cliente?.perfil}</Text>
-                    <Text style={styles.subText}>{!cliente.endereco ? (<ActivityIndicator size="large" color="#B100FF" />) : formataEndereco(cliente.endereco)}</Text>
+                    <Text style={styles.subText}>
+                        {!cliente.endereco ? (
+                            <ActivityIndicator size="large" color="#B100FF" />
+                        ) : (
+                            formataEndereco(cliente.endereco)
+                        )}
+                    </Text>
                 </View>
 
                 <View>
-                    <Text style={styles.textSuper}>Veja as opções</Text>
-                    <Text style={styles.textMini}>Selecione um receptor para doar</Text>
+                    <Text style={styles.textSuper}>{superText}</Text>
+                    <Text style={styles.textMini}>{miniText}</Text>
                 </View>
             </>
-
-
         </View>
     );
 };

@@ -71,9 +71,9 @@ function HomeTabScreen() {
                         header: () => <MapaHeader />,
                     }}
                 />
-                {/* <Tab.Screen
+                <Tab.Screen
                     name="Pedidos"
-                    component={Pedidos}
+                    component={''}
                     options={{
                         tabBarLabel: 'Pedidos',
                         tabBarIcon: ({ color, size }) => (
@@ -81,7 +81,7 @@ function HomeTabScreen() {
                         ),
                         header: () => <PedidosHeader />,
                     }}
-                /> */}
+                />
                 <Tab.Screen
                     name="Perfil"
                     component={Perfil}

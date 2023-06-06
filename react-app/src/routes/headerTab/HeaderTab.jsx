@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     headerText: {
-        fontSize: 12,
+        fontSize: 15,
         fontWeight: 'bold',
     },
     subText: {
         color: '#B100FF',
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: '300',
     },
     textSuper: {

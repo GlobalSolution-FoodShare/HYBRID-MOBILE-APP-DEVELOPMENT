@@ -161,7 +161,7 @@ export default function Home() {
                 thumbTintColor="#FF00FF" 
               />
               {selectedDistance && (
-                <Text style={{ textAlign: 'center' }}>{`${selectedDistance} KM`}</Text>
+                <Text style={{ textAlign: 'center', marginTop: -15, color: '#C133FF' }}>{`${selectedDistance} KM`}</Text>
               )}
             </View>
           )}

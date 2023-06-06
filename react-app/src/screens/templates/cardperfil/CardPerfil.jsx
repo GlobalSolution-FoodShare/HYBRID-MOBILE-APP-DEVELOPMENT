@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     name: {
+        marginBottom: 5,
         lineHeight: 25,
         fontSize: 18,
         maxWidth: 200,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     line: {
         borderBottomColor: 'black',
         opacity: 0.5,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.6,
         marginVertical: 10,
         marginTop: 2,
     },

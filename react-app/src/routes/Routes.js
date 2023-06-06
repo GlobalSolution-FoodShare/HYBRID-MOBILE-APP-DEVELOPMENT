@@ -12,6 +12,7 @@ import Home from './../screens/Home/Home.jsx';
 import Endereco from './../screens/cadastro/Endereco.jsx';
 import LoginCadastro from './../screens/cadastro/LoginCadastro.jsx';
 import AuthContext from './../context/AuthContext.js';
+import HeaderTab from './headerTab/HeaderTab.jsx';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
@@ -22,6 +23,7 @@ const Tab = createBottomTabNavigator();
 function HomeTabScreen() {
     return (
         <LogadoProvider >
+            <HeaderTab />
             <Tab.Navigator
                 screenOptions={{
                     tabBarActiveTintColor: '#B100FF',

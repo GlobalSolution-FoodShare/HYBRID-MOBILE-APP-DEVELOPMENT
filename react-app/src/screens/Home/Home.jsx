@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import { Dimensions, StyleSheet, View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, View, ActivityIndicator, Image, TouchableOpacity, Modal, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import AuthContext from '../../context/AuthContext';
 import ApiService from '../../service/ApiService';
 import LogadoContext from '../../context/LogadoContext';
 import { MaterialIcons } from '@expo/vector-icons';
+import customMaker from './../../../assets/iconLocal.png';
+import GenericModal from '../templates/modal/GenericModal';
+
 
 export default function Home() {
   const { idCliente, token } = useContext(AuthContext);
@@ -12,6 +15,7 @@ export default function Home() {
   const [region, setRegion] = useState(null);
   const [clientesProximos, setClientesProximos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCliente, setSelectedCliente] = useState(null); // Estado para controlar o cliente selecionado
   const mapViewRef = useRef(null); // Referência para o componente MapView
 
   const logarCliente = async () => {
@@ -48,7 +52,7 @@ export default function Home() {
         latitudeDelta: 0.0300,
         longitudeDelta: 0.00500,
       });
-      buscarPorProximidade(); // Chamar a função buscarPorProximidade novamente quando o cliente atual for atualizado
+      buscarPorProximidade();
     }
   }, [cliente]);
 
@@ -60,6 +64,14 @@ export default function Home() {
         longitudeDelta: 0.00500,
       });
     }
+  };
+
+  const handleClientePress = (cliente) => {
+    setSelectedCliente(cliente);
+  };
+
+  const closeModal = () => {
+    setSelectedCliente(null);
   };
 
   return (
@@ -76,8 +88,11 @@ export default function Home() {
             {region && (
               <Marker
                 coordinate={region}
-                pinColor='red'
-              />
+              >
+                <Image
+                  source={require('./../../../assets/iconLocal.png')}
+                />
+              </Marker>
             )}
             {clientesProximos.map(clienteProximo => (
               <Marker
@@ -86,13 +101,33 @@ export default function Home() {
                   latitude: clienteProximo.endereco.latitude,
                   longitude: clienteProximo.endereco.longitude
                 }}
-                pinColor='orange'
-              />
+                onPress={() => handleClientePress(clienteProximo)} // Manipulador de evento para quando o marcador do cliente for pressionado
+              >
+                <Image
+                  source={require('./../../../assets/iconLocalReceptor.png')}
+                />
+              </Marker>
             ))}
           </MapView>
           <TouchableOpacity style={styles.buttonContainer} onPress={centralizarCliente}>
             <MaterialIcons name="my-location" size={24} color="#C133FF" />
           </TouchableOpacity>
+
+          {/* Modal */}
+          <Modal visible={selectedCliente !== null} animationType="slide">
+            <GenericModal
+              title={selectedCliente?.nome}
+              onClose={closeModal}
+              body={
+                <Text>Conteúdo do corpo do modal para o cliente selecionado</Text>
+              }
+              bottom={
+                <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+                  <Text style={styles.closeButtonText}>Fechar</Text>
+                </TouchableOpacity>
+              }
+            />
+          </Modal>
         </>
       )}
     </View>
@@ -108,14 +143,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   map: {
+    position: 'absolute',
     marginLeft: 0,
+    padding: 10,
+    bottom: 10,
+    marginBottom: 9,
     border: 0,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 16,
+    bottom: 10,
     left: 10,
     width: 56,
     height: 56,
@@ -123,5 +162,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#33213',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  markerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButton: {
+    backgroundColor: '#C133FF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });

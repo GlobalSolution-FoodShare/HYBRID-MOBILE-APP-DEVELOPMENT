@@ -24,6 +24,7 @@
     "expo-status-bar": "~1.4.4",
     "formik": "^2.4.1",
     "link": "^1.5.1",
+    "lottie-react-native": "^5.1.6",
     "network": "^0.6.1",
     "react": "18.2.0",
     "react-native": "^0.71.8",

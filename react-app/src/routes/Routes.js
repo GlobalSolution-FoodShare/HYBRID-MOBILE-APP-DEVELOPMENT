@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import LogadoProvider from '../context/LogadoProvider.js';
 
 import Init from './../screens/init/Init.jsx';
 import Cadastro from './../screens/cadastro/Cadastro.jsx';
@@ -23,31 +23,32 @@ const Tab = createBottomTabNavigator();
 
 function HomeTabScreen() {
     return (
-        <Tab.Navigator
-            screenOptions={{
-                tabBarActiveTintColor: '#B100FF',
-                tabBarInactiveTintColor: 'gray',
-                tabBarStyle: [
-                    {
-                        display: 'flex',
-                        height: 60,
-                        paddingBottom: 10,
-                        paddingTop: 10
-                    }
-                ]
-            }}
-        >
-            <Tab.Screen
-                name="Mapa"
-                component={Home}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'Mapa',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="map-marker-alt" color={color} size={size} />
-                    ),
+        <LogadoProvider >
+            <Tab.Navigator
+                screenOptions={{
+                    tabBarActiveTintColor: '#B100FF',
+                    tabBarInactiveTintColor: 'gray',
+                    tabBarStyle: [
+                        {
+                            display: 'flex',
+                            height: 60,
+                            paddingBottom: 10,
+                            paddingTop: 10
+                        }
+                    ]
                 }}
-            />
+            >
+                <Tab.Screen
+                    name="Mapa"
+                    component={Home}
+                    options={{
+                        headerShown: false,
+                        tabBarLabel: 'Mapa',
+                        tabBarIcon: ({ color, size }) => (
+                            <Icon name="map-marker-alt" color={color} size={size} />
+                        ),
+                    }}
+                />
 
 
             <Tab.Screen
@@ -72,7 +73,8 @@ function HomeTabScreen() {
                 }}
             />
 
-        </Tab.Navigator>
+            </Tab.Navigator>
+        </LogadoProvider >
     );
 }
 
@@ -85,11 +87,8 @@ const ScreenContainer = ({ children }) => {
 };
 
 const Routes = () => {
-    const { token, idCliente } = useContext(AuthContext);
+    const { token } = useContext(AuthContext);
 
-
-    console.log(token)
-    console.log(idCliente)
     return (
         <NavigationContainer>
             {token ? (

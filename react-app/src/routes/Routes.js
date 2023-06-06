@@ -13,6 +13,8 @@ import Endereco from './../screens/cadastro/Endereco.jsx';
 import LoginCadastro from './../screens/cadastro/LoginCadastro.jsx';
 import AuthContext from './../context/AuthContext.js';
 
+import Perfil from '../screens/perfil/Perfil.jsx'
+
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
 
@@ -60,8 +62,9 @@ function HomeTabScreen() {
             />
             <Tab.Screen
                 name="Perfil"
-                component={''}
+                component={Perfil}
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Perfil',
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="user" color={color} size={size} />

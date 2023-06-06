@@ -14,6 +14,8 @@ import LoginCadastro from './../screens/cadastro/LoginCadastro.jsx';
 import AuthContext from './../context/AuthContext.js';
 import HeaderTab from './headerTab/HeaderTab.jsx';
 
+import Perfil from '../screens/perfil/Perfil.jsx'
+
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
 
@@ -50,26 +52,28 @@ function HomeTabScreen() {
                     }}
                 />
 
-                <Tab.Screen
-                    name="Pedidos"
-                    component={''}
-                    options={{
-                        tabBarLabel: 'Pedidos',
-                        tabBarIcon: ({ color, size }) => (
-                            <Octicons name="checklist" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Perfil"
-                    component={''}
-                    options={{
-                        tabBarLabel: 'Perfil',
-                        tabBarIcon: ({ color, size }) => (
-                            <Icon name="user" color={color} size={size} />
-                        ),
-                    }}
-                />
+
+            <Tab.Screen
+                name="Pedidos"
+                component={''}
+                options={{
+                    tabBarLabel: 'Pedidos',
+                    tabBarIcon: ({ color, size }) => (
+                        <Octicons name="checklist" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Perfil"
+                component={Perfil}
+                options={{
+                    headerShown: false,
+                    tabBarLabel: 'Perfil',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="user" color={color} size={size} />
+                    ),
+                }}
+            />
 
             </Tab.Navigator>
         </LogadoProvider >

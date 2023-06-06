@@ -1,10 +1,19 @@
 import { View, StyleSheet, Dimensions } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import SpanBold from '../templates/text/SpanBold'
 import CardPerfil from '../templates/cardperfil/CardPerfil'
+import AuthContext from '../../context/AuthContext';
+import ApiService from '../../service/ApiService';
+import LogadoContext from '../../context/LogadoContext';
 
 export default function Perfil() {
 
+    const { idCliente, token } = useContext(AuthContext);
+    const { setClienteFunction, cliente } = useContext(LogadoContext);
+
+
+
+    console.log(cliente)
     return (
         <View>
             <SpanBold
@@ -12,7 +21,9 @@ export default function Perfil() {
                 positionStyle={styles.positionPerfil}
             />
             <View style={styles.viewMaster}>
-                <CardPerfil />
+                <CardPerfil
+                    nomeCompleto={cliente.nomeCompleto}
+                />
             </View>
         </View>
     )

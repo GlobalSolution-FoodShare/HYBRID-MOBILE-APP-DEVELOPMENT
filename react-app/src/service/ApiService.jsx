@@ -1,4 +1,4 @@
-const urlBackend = 'http://192.168.56.1:8080/api';
+const urlBackend = 'http://192.168.0.145:8080/api';
 
 class ApiService {
     async post(endpoint, data, token) {

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import LogadoContext from '../../context/LogadoContext';
 
 const HeaderTab = () => {
@@ -10,20 +10,22 @@ const HeaderTab = () => {
         return enderecoFormatado;
     }
 
-
-    console.log(cliente)
     return (
         <View style={styles.headerContainer}>
 
-            <View style={styles.headerContainerTextsInfos}>
-                <Text style={styles.headerText}>{cliente?.perfil}</Text>
-                <Text style={styles.subText}>{formataEndereco(cliente.endereco)}</Text>
-            </View>
+            <>
+                <View style={styles.headerContainerTextsInfos}>
 
-            <View>
-                <Text style={styles.textSuper}>Veja as opções</Text>
-                <Text style={styles.textMini}>Selecione um receptor para doar</Text>
-            </View>
+                    <Text style={styles.headerText}>{cliente?.perfil}</Text>
+                    <Text style={styles.subText}>{!cliente.endereco ? (<ActivityIndicator size="large" color="#B100FF" />) : formataEndereco(cliente.endereco)}</Text>
+                </View>
+
+                <View>
+                    <Text style={styles.textSuper}>Veja as opções</Text>
+                    <Text style={styles.textMini}>Selecione um receptor para doar</Text>
+                </View>
+            </>
+
 
         </View>
     );

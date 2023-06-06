@@ -9,7 +9,6 @@ import Button from '../templates/buttons/Button';
 import TextAsButton from '../templates/buttons/TextAsButton';
 import imagemRoot from '../../../assets/imagem-tela-principal.png';
 import CustomTextErro from '../templates/buttons/CustomTextErro';
-import Snackbar from '../templates/snackbar/Snackbar';
 import React, { useState, useContext } from 'react';
 import AuthContext from '../../context/AuthContext';
 
@@ -17,7 +16,6 @@ import AuthContext from '../../context/AuthContext';
 export default function Login() {
     const { signIn, token } = useContext(AuthContext);
     const navigation = useNavigation();
-    const [snackbarVisible, setSnackbarVisible] = useState(false);
 
 
 
@@ -25,7 +23,6 @@ export default function Login() {
         try {
             const success = await signIn(values);
             if (success) {
-                navigation.navigate("Home");
             } else {
                 console.error("Email ou senha incorretos");
             }
@@ -46,9 +43,6 @@ export default function Login() {
         setSnackbarVisible(false);
     };
 
-
-
-
     return (
         <View>
             <View>
@@ -59,7 +53,7 @@ export default function Login() {
                 </View>
 
                 <Formik
-                    initialValues={{ email: 'guxta@loco.com.br', senha: '12332112' }}
+                    initialValues={{ email: 'reis@loco.com.br', senha: '123123213131' }}
                     validationSchema={validationSchema}
                     onSubmit={handleLogin}
                 >
@@ -106,16 +100,6 @@ export default function Login() {
 
 
             </View>
-
-            {snackbarVisible && (
-                <Snackbar
-                    message="Falha na autenticação"
-                    duration={3000}
-                    onClose={handleSnackbarClose}
-                    backgroundColor="red"
-                />
-            )}
-
         </View>
     );
 }

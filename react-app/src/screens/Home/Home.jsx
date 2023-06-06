@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View, ActivityIndicator, Image, TouchableOpacity, Modal, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import AuthContext from '../../context/AuthContext';
@@ -8,7 +8,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import customMaker from './../../../assets/iconLocal.png';
 import GenericModal from '../templates/modal/GenericModal';
 
-
 export default function Home() {
   const { idCliente, token } = useContext(AuthContext);
   const { setClienteFunction, cliente } = useContext(LogadoContext);
@@ -16,49 +15,48 @@ export default function Home() {
   const [clientesProximos, setClientesProximos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCliente, setSelectedCliente] = useState(null); // Estado para controlar o cliente selecionado
-  const mapViewRef = useRef(null); // Referência para o componente MapView
 
-  const logarCliente = async () => {
-    const responseCliente = await ApiService.get(`cliente/${idCliente}`, token);
-    setClienteFunction(responseCliente.data);
-
-    console.log("Cliente Atual: " + cliente.id);
-  };
-
-  const buscarPorProximidade = async (raio = 10) => {
-    if (cliente.endereco) {
+  useEffect(() => {
+    const logarCliente = async () => {
       try {
-        const responseCliente = await ApiService.get(`cliente/raio?latitude=${cliente.endereco?.latitude}&longitude=${cliente.endereco?.longitude}&raio=${raio}`, token);
-        setClientesProximos(responseCliente.data);
+        const responseCliente = await ApiService.get(`cliente/${idCliente}`, token);
+        setClienteFunction(responseCliente.data);
       } catch (e) {
-        console.error("Erro ao buscar clientes proximos", e);
       }
-    }
-  };
-
-  useEffect(() => {
-    const fetchDados = async () => {
-      await logarCliente();
-      setLoading(false);
     };
-    fetchDados();
-  }, []);
+
+    logarCliente();
+  }, [idCliente, token, setClienteFunction]);
 
   useEffect(() => {
-    if (cliente.endereco) {
+    const buscarPorProximidade = async (raio = 10) => {
+      if (cliente?.endereco) {
+        try {
+          const responseCliente = await ApiService.get(`cliente/raio?latitude=${cliente.endereco.latitude}&longitude=${cliente.endereco.longitude}&raio=${raio}`, token);
+          setClientesProximos(responseCliente.data);
+        } catch (e) {
+          console.log("Erro ao buscar clientes proximos", e);
+        }
+      }
+    };
+
+    if (cliente?.endereco) {
       setRegion({
         latitude: cliente.endereco.latitude,
         longitude: cliente.endereco.longitude,
         latitudeDelta: 0.0300,
         longitudeDelta: 0.00500,
       });
+
       buscarPorProximidade();
     }
-  }, [cliente]);
+
+    setLoading(false);
+  }, [cliente, token]);
 
   const centralizarCliente = () => {
-    if (region && region.latitude && region.longitude && mapViewRef.current) {
-      mapViewRef.current.animateToRegion({
+    if (region) {
+      setRegion({
         ...region,
         latitudeDelta: 0.0300,
         longitudeDelta: 0.00500,
@@ -81,17 +79,12 @@ export default function Home() {
       ) : (
         <>
           <MapView
-            ref={mapViewRef}
             style={styles.map}
             region={region}
           >
             {region && (
-              <Marker
-                coordinate={region}
-              >
-                <Image
-                  source={require('./../../../assets/iconLocal.png')}
-                />
+              <Marker coordinate={region}>
+                <Image source={require('./../../../assets/iconLocal.png')} />
               </Marker>
             )}
             {clientesProximos.map(clienteProximo => (
@@ -101,11 +94,9 @@ export default function Home() {
                   latitude: clienteProximo.endereco.latitude,
                   longitude: clienteProximo.endereco.longitude
                 }}
-                onPress={() => handleClientePress(clienteProximo)} // Manipulador de evento para quando o marcador do cliente for pressionado
+                onPress={() => handleClientePress(clienteProximo)}
               >
-                <Image
-                  source={require('./../../../assets/iconLocalReceptor.png')}
-                />
+                <Image source={require('./../../../assets/iconLocalReceptor.png')} />
               </Marker>
             ))}
           </MapView>
@@ -133,7 +124,6 @@ export default function Home() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   viewMaster: {
     marginLeft: 0,

@@ -13,7 +13,6 @@ export default function Perfil() {
 
 
 
-    console.log(cliente)
     return (
         <View>
             <SpanBold

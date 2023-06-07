@@ -53,7 +53,7 @@ export default function Login() {
                 </View>
 
                 <Formik
-                    initialValues={{ email: 'reis@loco.com.br', senha: '123123213131' }}
+                    initialValues={{ email: '', senha: '' }}
                     validationSchema={validationSchema}
                     onSubmit={handleLogin}
                 >

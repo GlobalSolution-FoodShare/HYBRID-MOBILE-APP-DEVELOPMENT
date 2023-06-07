@@ -1,3 +1,4 @@
+import { height } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Importe o ícone desejado da biblioteca
@@ -32,7 +33,8 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     width: '90%',
-    maxHeight: '80%'
+    maxHeight: '80%',
+    height: '80%'
   },
   modalHeader: {
     flexDirection: 'row',

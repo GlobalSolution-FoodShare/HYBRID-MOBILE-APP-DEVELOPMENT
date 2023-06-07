@@ -13,11 +13,13 @@ import Endereco from './../screens/cadastro/Endereco.jsx';
 import LoginCadastro from './../screens/cadastro/LoginCadastro.jsx';
 import AuthContext from './../context/AuthContext.js';
 import HeaderTab from './headerTab/HeaderTab.jsx';
+import Perfil from './../screens/perfil/Perfil.jsx'
 
-import Perfil from '../screens/perfil/Perfil.jsx'
+import Pedidos from '../screens/Pedidos/Pedidos.jsx';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
+import LogadoContext from '../context/LogadoContext.js';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,8 +33,8 @@ const MapaHeader = () => (
 
 const PedidosHeader = () => (
     <HeaderTab
-        superText="Texto para a tela Pedidos"
-        miniText="Outro texto para a tela Pedidos"
+        superText="Doações"
+        miniText="Olhe suas doações"
     />
 );
 
@@ -44,6 +46,7 @@ const PerfilHeader = () => (
 );
 
 function HomeTabScreen() {
+
     return (
         <LogadoProvider>
             <Tab.Navigator
@@ -73,7 +76,7 @@ function HomeTabScreen() {
                 />
                 <Tab.Screen
                     name="Pedidos"
-                    component={''}
+                    component={Pedidos}
                     options={{
                         tabBarLabel: 'Pedidos',
                         tabBarIcon: ({ color, size }) => (
@@ -108,7 +111,6 @@ const ScreenContainer = ({ children }) => {
 
 const Routes = () => {
     const { token, logout } = useContext(AuthContext);
-    // logout();
     return (
         <NavigationContainer>
             {token ? (

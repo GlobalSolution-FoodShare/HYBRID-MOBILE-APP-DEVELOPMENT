@@ -1,7 +1,6 @@
 import React from 'react';
 
 const LogadoContext = React.createContext({
-    // inicializando com valores padrão
     mapa: {},
     pedidos: [{}],
     perfil: {},

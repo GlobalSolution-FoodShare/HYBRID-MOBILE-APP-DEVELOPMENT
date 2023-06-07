@@ -58,7 +58,6 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     setToken(null);
-    // Remover o token do AsyncStorage
     await AsyncStorage.removeItem('@RNAuth:token');
     await AsyncStorage.removeItem('@RNAuth:idCliente');
   };

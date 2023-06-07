@@ -22,7 +22,7 @@ const TextAsButton = ({ label , positionStyle, namePage}) => {
 
   if (!fontsLoaded) {
     loadFonts();
-    return null; // Renderiza null enquanto as fontes estão sendo carregadas
+    return null;
   }
 
   return (

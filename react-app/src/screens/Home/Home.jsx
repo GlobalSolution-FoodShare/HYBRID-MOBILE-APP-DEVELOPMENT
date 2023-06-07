@@ -5,11 +5,7 @@ import AuthContext from '../../context/AuthContext';
 import ApiService from '../../service/ApiService';
 import LogadoContext from '../../context/LogadoContext';
 import { MaterialIcons } from '@expo/vector-icons';
-import GenericModal from '../templates/modal/GenericModal'
-import { LinearGradient } from 'expo-linear-gradient';
 import Slider from '@react-native-community/slider';
-import { BlurView } from '@react-native-community/blur';
-import ListSolicitacoes from './listSolicitacoes/ListSolicitacoes';
 import SelectClienteReceptor from './selectClienteReceptor/SelectClienteReceptor';
 
 export default function Home() {
@@ -20,7 +16,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const mapViewRef = useRef(null);
-  const [isFilterVisible, setIsFilterVisible] = useState(true);
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [raio, setRaio] = useState(10);
 
   useEffect(() => {
@@ -152,7 +148,12 @@ export default function Home() {
             <SelectClienteReceptor cliente={selectedMarker} onCloseModal={closeModal} />
           )}
         </>
+
+
       )}
+
+
+
     </View>
   );
 }

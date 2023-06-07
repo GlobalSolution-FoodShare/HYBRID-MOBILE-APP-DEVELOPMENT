@@ -31,19 +31,33 @@ const MapaHeader = () => (
     />
 );
 
-const PedidosHeader = () => (
-    <HeaderTab
-        superText="Doações"
-        miniText="Olhe suas doações"
-    />
-);
+const PedidosHeader = () => {
+    const { cliente } = useContext(LogadoContext);
 
+    return (
+        <HeaderTab
+            superText={
+                cliente.perfil === 'RECEPTOR'
+                    ? 'Solicitações'
+                    : 'Doações'
+            }
+            miniText={
+                cliente?.perfil === 'RECEPTOR'
+                    ? 'Olhe suas solicitações'
+                    : 'Olhe suas doações'
+            }
+        />
+    );
+};
 const PerfilHeader = () => (
+
     <HeaderTab
         superText="Meu Perfil"
         miniText="Faça atualizações aqui"
     />
 );
+
+
 
 function HomeTabScreen() {
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from './AuthContext';
 import ApiService from '../service/ApiService';
+import { useNavigation } from '@react-navigation/native';
 
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
@@ -57,9 +58,10 @@ const AuthProvider = ({ children }) => {
 
 
   const logout = async () => {
-    setToken(null);
     await AsyncStorage.removeItem('@RNAuth:token');
     await AsyncStorage.removeItem('@RNAuth:idCliente');
+    setToken(null);
+    
   };
 
   return (

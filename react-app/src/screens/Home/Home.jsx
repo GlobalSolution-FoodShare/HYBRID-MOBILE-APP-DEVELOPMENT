@@ -7,6 +7,7 @@ import LogadoContext from '../../context/LogadoContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
 import SelectClienteReceptor from './selectClienteReceptor/SelectClienteReceptor';
+import SelectProdutos from './selectReceptorProdutos/SelectProdutos';
 
 export default function Home() {
   const { idCliente, token } = useContext(AuthContext);
@@ -18,6 +19,7 @@ export default function Home() {
   const mapViewRef = useRef(null);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [raio, setRaio] = useState(10);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const logarCliente = async () => {
@@ -32,6 +34,7 @@ export default function Home() {
   }, [idCliente, token, setClienteFunction]);
 
   useEffect(() => {
+
     const buscarPorProximidade = async () => {
       if (cliente?.endereco) {
         try {
@@ -81,6 +84,14 @@ export default function Home() {
 
   const handleSliderValueChange = (value) => {
     setRaio(value);
+  };
+
+  const handleAddButtonPress = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -147,13 +158,20 @@ export default function Home() {
           {selectedMarker && (
             <SelectClienteReceptor cliente={selectedMarker} onCloseModal={closeModal} />
           )}
+
+          {cliente?.perfil === 'RECEPTOR' && (
+            <TouchableOpacity style={styles.addButton} onPress={handleAddButtonPress}>
+              <MaterialIcons name="add" size={24} color="#FFFFFF" />
+            </TouchableOpacity>
+          )}
+
+
+          {isModalVisible && (
+            <SelectProdutos onCloseModal={handleCloseModal} />
+          )}
+
         </>
-
-
       )}
-
-
-
     </View>
   );
 }
@@ -231,5 +249,24 @@ const styles = StyleSheet.create({
   slider: {
     width: '100%',
     height: 40,
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 25,
+    right: 15,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#C133FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
 });

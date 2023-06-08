@@ -53,7 +53,7 @@ export default function Login() {
                 </View>
 
                 <Formik
-                    initialValues={{ email: 'reis@loco.com.br', senha: '123123213131' }}
+                    initialValues={{ email: '', senha: '' }}
                     validationSchema={validationSchema}
                     onSubmit={handleLogin}
                 >
@@ -91,12 +91,14 @@ export default function Login() {
                         </View>
                     )}
                 </Formik>
+                <View style={[styles.align, styles.center]}>
+                    <TextAsButton
+                        label="Crie uma conta"
+                        namePage="Cadastro"
+                        positionStyle={styles.positionEsqueciSenha}
+                    />
+                </View>
 
-                <TextAsButton
-                    label="Crie uma conta"
-                    namePage="Cadastro"
-                    positionStyle={styles.positionEsqueciSenha}
-                />
 
 
             </View>
@@ -119,5 +121,16 @@ const styles = StyleSheet.create({
     imagemRoot: {
         position: 'absolute',
         marginTop: -16,
+    },
+    align: {
+        marginTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    center: {
+        alignSelf: 'center',
+    },
+    positionEsqueciSenha: {
+        // Estilos específicos para o componente TextAsButton
     },
 });

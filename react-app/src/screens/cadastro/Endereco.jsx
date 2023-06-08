@@ -49,30 +49,31 @@ export default function Endereco() {
                 latitude,
                 longetude);
             let cliente = new Cliente(cadastroInfo.cpf, cadastroInfo.nome, cadastroInfo.tipo, endereco);
-            
-           cadastrarCliente(cliente)
+
+            cadastrarCliente(cliente)
         }
     };
 
 
     const cadastrarCliente = async (data) => {
-
         setLoading(true)
         try {
             const response = await ApiService.post('cliente/registrar', data);
+            console.log(response)
+
             navigation.navigate('LoginCadastro');
             setCadastroInfo(response)
-          } catch (error) {
+        } catch (error) {
             if (Platform.OS === 'android' || Platform.OS === 'ios') {
-              console.error("Erro ao validar");
+                console.error("Erro ao validar");
             } else {
-              setSnackbarVisible(true);
-      
+                setSnackbarVisible(true);
+
             }
-      
-          } finally {
+
+        } finally {
             setLoading(false)
-          }
+        }
     };
 
 

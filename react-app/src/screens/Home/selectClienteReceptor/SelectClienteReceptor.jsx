@@ -15,9 +15,9 @@ const SelectClienteReceptor = ({ cliente, onCloseModal }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const formataEndereco = (endereco) => {
-        const enderecoFormatado = `${endereco?.logradouro}, ${endereco?.numero}, ${endereco?.complemento}, ${endereco?.bairro}`;
+        const enderecoFormatado = `${endereco?.logradouro}, ${endereco?.numero}, ${endereco?.complemento == null ? '': endereco?.complemento + ","} ${endereco?.bairro}`;
         return enderecoFormatado;
-    };
+    }
 
     useEffect(() => {
         const buscarSolicitacoes = async () => {

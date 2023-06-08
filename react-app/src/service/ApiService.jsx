@@ -1,5 +1,6 @@
-const urlBackend = 'http://192.168.15.14:8080/api';
+const urlBackend = 'http://172.24.64.1:8080/api';
 
+  console.log(process.env.REACT_APP_API_URL)
 class ApiService {
     async post(endpoint, data, token) {
         const url = `${urlBackend}/${endpoint}`;

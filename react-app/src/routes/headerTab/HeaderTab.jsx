@@ -6,7 +6,7 @@ const HeaderTab = ({ superText, miniText })  => {
     const { cliente } = useContext(LogadoContext);
 
     const formataEndereco = (endereco) => {
-        const enderecoFormatado = `${endereco?.logradouro}, ${endereco?.numero}, ${endereco?.complemento}, ${endereco?.bairro}`;
+        const enderecoFormatado = `${endereco?.logradouro}, ${endereco?.numero}, ${endereco?.complemento == null ? '': endereco?.complemento + ","} ${endereco?.bairro}`;
         return enderecoFormatado;
     }
 

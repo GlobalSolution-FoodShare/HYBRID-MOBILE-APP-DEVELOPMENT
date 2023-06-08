@@ -14,7 +14,7 @@ import CadastroContext from '../../context/CadastroContext';
 export default function Cadastro() {
   const navigation = useNavigation();
   const { cadastroInfo, setCadastroInfo } = useContext(CadastroContext);
-
+  
   const optionsPicker = ['DOADOR', 'RECEPTOR'];
   const [selectedTipo, setSelectedTipo] = useState(null);
 

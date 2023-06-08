@@ -27,6 +27,7 @@ const TextAsButton = ({ label , positionStyle, namePage}) => {
 
   return (
     <TouchableOpacity 
+      style={{justifyContent: 'center'}}
       onPress={handle}
     >
       <Text style={[styles.text, positionStyle]}>{label}</Text>
